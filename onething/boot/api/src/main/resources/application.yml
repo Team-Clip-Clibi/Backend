@@ -1,3 +1,19 @@
 spring:
   profiles:
     include: core-data
+
+jwt:
+  access-token-expiration-period-day: 1
+  refresh-token-expiration-period-month: 3
+  secret-key: ${JWT_KEY}
+
+exclude-auth-path-patterns:
+  paths:
+    - path-pattern: /users
+      method: POST
+    - path-pattern: /swagger-ui/**
+      method: GET
+    - path-pattern: /swagger-resources/**
+      method: GET
+    - path-pattern: /v3/api-docs/**
+      method: GET
