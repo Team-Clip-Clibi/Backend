@@ -45,7 +45,7 @@ public class TokenProvider {
         try {
             jwtParser.parse(token);
         } catch (Exception e) {
-            throw new InvalidTokenException(e.getMessage());
+            throw new InvalidTokenException();
         }
     }
 

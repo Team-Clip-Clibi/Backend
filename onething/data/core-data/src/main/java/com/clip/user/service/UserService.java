@@ -28,7 +28,7 @@ public class UserService {
         try {
             userRepository.updatePhoneNumber(userId, phoneNumber);
         }catch (DataIntegrityViolationException e){
-            throw new PhoneNumberAlreadyExistsException("이미 사용중인 번호로 업데이트 할 수 없습니다.");
+            throw new PhoneNumberAlreadyExistsException();
         }
     }
 
@@ -40,7 +40,7 @@ public class UserService {
         try {
             userRepository.updateNickname(userId, nickname);
         }catch (DataIntegrityViolationException e){
-            throw new NicknameAlreadyExistsException("이미 사용중인 닉네임으로 업데이트 할 수 없습니다.");
+            throw new NicknameAlreadyExistsException();
         }
     }
 }

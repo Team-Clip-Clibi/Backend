@@ -56,7 +56,7 @@ public class UserAccountService {
         Optional<User> optUser = userService.findOptUser(request.getSocialId(), request.getPlatform());
 
         if (optUser.isEmpty()) {
-            throw new NotFoundUserException("가입되지 않은 유저입니다.");
+            throw new NotFoundUserException();
         }
 
         TokenProvider.Token token = tokenProvider.generateToken(optUser.get().getId(), LocalDateTime.now());
