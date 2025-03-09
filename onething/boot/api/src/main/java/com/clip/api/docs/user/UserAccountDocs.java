@@ -22,7 +22,6 @@ public interface UserAccountDocs {
     )
     ResponseEntity<TokenProvider.Token> createUserAccount(@RequestBody SignupDto request);
 
-//    @Tag(name = "회원관리", description = "회원가입/회원탈퇴/로그인/로그아웃")
     @Operation(
             summary = "로그인 API",
             description = """
@@ -33,7 +32,6 @@ public interface UserAccountDocs {
     )
     ResponseEntity<TokenProvider.Token> loginUserAccount(@RequestBody LoginDto request);
 
-//    @Tag(name = "회원관리", description = "회원가입/회원탈퇴/로그인/로그아웃")
     @Operation(
             summary = "번호 업데이트 API",
             description = """
@@ -45,7 +43,6 @@ public interface UserAccountDocs {
     ResponseEntity<Void> updatePhoneNumber(@RequestBody UpdatePhoneNumberDto updatePhoneNumberDto,
                                            @AuthenticationPrincipal UserDetails userDetails);
 
-//    @Tag(name = "회원관리", description = "회원가입/회원탈퇴/로그인/로그아웃")
     @Operation(
             summary = "이름 업데이트 API",
             description = """
@@ -55,7 +52,6 @@ public interface UserAccountDocs {
     ResponseEntity<Void> updateName(@RequestBody UpdateNameDto updateNameDto,
                                     @AuthenticationPrincipal UserDetails userDetails);
 
-//    @Tag(name = "회원관리")
     @Operation(
             summary = "닉네임 업데이트 API",
             description = """
