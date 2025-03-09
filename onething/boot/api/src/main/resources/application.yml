@@ -9,7 +9,9 @@ jwt:
 
 exclude-auth-path-patterns:
   paths:
-    - path-pattern: /users
+    - path-pattern: /users/signup
+      method: POST
+    - path-pattern: /users/signin
       method: POST
     - path-pattern: /swagger-ui/**
       method: GET
