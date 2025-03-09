@@ -6,10 +6,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class SignupDto {
-    private boolean servicePermission;
-    private boolean privatePermission;
-    private boolean marketingPermission;
+public class LoginDto {
     private String socialId;
     private Platform platform;
 }

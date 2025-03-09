@@ -1,10 +1,7 @@
 package com.clip.api.user.controller;
 
 import com.clip.api.docs.user.UserAccountDocs;
-import com.clip.api.user.controller.dto.UpdateNameDto;
-import com.clip.api.user.controller.dto.UpdateNicknameDto;
-import com.clip.api.user.controller.dto.UpdatePhoneNumberDto;
-import com.clip.api.user.controller.dto.SignupDto;
+import com.clip.api.user.controller.dto.*;
 import com.clip.api.user.service.UserAccountService;
 import com.clip.global.config.jwt.TokenProvider;
 import lombok.RequiredArgsConstructor;
@@ -21,9 +18,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserAccountController implements UserAccountDocs {
     private final UserAccountService userAccountService;
 
-    @PostMapping("/users")
-    public ResponseEntity<TokenProvider.Token> createUserAccount(@RequestBody SignupDto.Request request) {
+    @PostMapping("/users/signup")
+    public ResponseEntity<TokenProvider.Token> createUserAccount(@RequestBody SignupDto request) {
         return ResponseEntity.ok(userAccountService.signup(request));
+    }
+
+    @PostMapping("/users/signin")
+    public ResponseEntity<TokenProvider.Token> loginUserAccount(@RequestBody LoginDto request) {
+        return ResponseEntity.ok(userAccountService.login(request));
     }
 
     @PatchMapping("/users/phone")

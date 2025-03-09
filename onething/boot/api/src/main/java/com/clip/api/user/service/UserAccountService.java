@@ -1,6 +1,8 @@
 package com.clip.api.user.service;
 
+import com.clip.api.user.controller.dto.LoginDto;
 import com.clip.api.user.controller.dto.SignupDto;
+import com.clip.api.user.exception.NotFoundUserException;
 import com.clip.auth.entity.Token;
 import com.clip.auth.service.TokenService;
 import com.clip.global.config.jwt.TokenProvider;
@@ -24,7 +26,7 @@ public class UserAccountService {
     private final TokenService tokenService;
 
     @Transactional
-    public TokenProvider.Token signup(SignupDto.Request request) {
+    public TokenProvider.Token signup(SignupDto request) {
         Optional<User> optUser = userService.findOptUser(request.getSocialId(), request.getPlatform());
 
         if (optUser.isPresent()) {
@@ -47,6 +49,18 @@ public class UserAccountService {
 
         TokenProvider.Token token = tokenProvider.generateToken(user.getId(), LocalDateTime.now());
         tokenService.save(Token.builder().refreshToken(token.refreshToken()).user(user).build());
+        return token;
+    }
+
+    public TokenProvider.Token login(LoginDto request) {
+        Optional<User> optUser = userService.findOptUser(request.getSocialId(), request.getPlatform());
+
+        if (optUser.isEmpty()) {
+            throw new NotFoundUserException("가입되지 않은 유저입니다.");
+        }
+
+        TokenProvider.Token token = tokenProvider.generateToken(optUser.get().getId(), LocalDateTime.now());
+        tokenService.updateRefreshToken(optUser.get(), token.refreshToken());
         return token;
     }
 
