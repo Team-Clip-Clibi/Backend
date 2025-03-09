@@ -5,7 +5,6 @@ import com.clip.auth.entity.Token;
 import com.clip.auth.repository.TokenRepository;
 import com.clip.user.entity.User;
 import com.clip.user.repository.UserRepository;
-import jakarta.persistence.EntityManager;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,8 +19,6 @@ public class TokenRepositoryTest {
     TokenRepository tokenRepository;
     @Autowired
     UserRepository userRepository;
-    @Autowired
-    EntityManager entityManager;
 
     @DisplayName("User로 token table의 refresh token을 업데이트 한다.")
     @Test
@@ -32,7 +29,6 @@ public class TokenRepositoryTest {
 
         //when
         tokenRepository.updateRefreshToken(user,"refresh2");
-        entityManager.clear();
         String refreshToken = tokenRepository.findById(user.getId()).get().getRefreshToken();
         //then
         Assertions.assertThat(refreshToken).isEqualTo("refresh2");

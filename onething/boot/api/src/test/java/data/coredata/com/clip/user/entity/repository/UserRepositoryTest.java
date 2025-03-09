@@ -3,7 +3,6 @@ package data.coredata.com.clip.user.entity.repository;
 import com.clip.ApiApplication;
 import com.clip.user.entity.User;
 import com.clip.user.repository.UserRepository;
-import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +18,6 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 public class UserRepositoryTest {
     @Autowired
     UserRepository userRepository;
-    @Autowired
-    EntityManager entityManager;
 
     @DisplayName("userId로 phoneNumber를 업데이트 한다.")
     @Test
@@ -31,7 +28,6 @@ public class UserRepositoryTest {
 
         //when
         userRepository.updatePhoneNumber(user.getId(), phoneNumber);
-        entityManager.clear();
 
         //then
         user = userRepository.findById(user.getId()).get();
@@ -60,7 +56,6 @@ public class UserRepositoryTest {
 
         //when
         userRepository.updateUserName(user.getId(), userName);
-        entityManager.clear();
         user = userRepository.findById(user.getId()).get();
 
         //then
@@ -76,7 +71,6 @@ public class UserRepositoryTest {
 
         //when
         userRepository.updateNickname(user.getId(), nickname);
-        entityManager.clear();
         user = userRepository.findById(user.getId()).get();
 
         //then
