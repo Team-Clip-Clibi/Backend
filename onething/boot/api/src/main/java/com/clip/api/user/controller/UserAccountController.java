@@ -5,47 +5,45 @@ import com.clip.api.user.controller.dto.*;
 import com.clip.api.user.service.UserAccountService;
 import com.clip.global.config.jwt.TokenProvider;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+@RequestMapping("/users")
 @RestController
 @RequiredArgsConstructor
 public class UserAccountController implements UserAccountDocs {
     private final UserAccountService userAccountService;
 
-    @PostMapping("/users/signup")
-    public ResponseEntity<TokenProvider.Token> createUserAccount(@RequestBody SignupDto request) {
-        return ResponseEntity.ok(userAccountService.signup(request));
+    @PostMapping("/signup")
+    public TokenProvider.Token createUserAccount(@RequestBody SignupDto request) {
+        return userAccountService.signup(request);
     }
 
-    @PostMapping("/users/signin")
-    public ResponseEntity<TokenProvider.Token> loginUserAccount(@RequestBody LoginDto request) {
-        return ResponseEntity.ok(userAccountService.login(request));
+    @PostMapping("/signin")
+    public TokenProvider.Token loginUserAccount(@RequestBody LoginDto request) {
+        return userAccountService.login(request);
     }
 
-    @PatchMapping("/users/phone")
-    public ResponseEntity<Void> updatePhoneNumber(@RequestBody UpdatePhoneNumberDto updatePhoneNumberDto,
+    @PatchMapping("/phone")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updatePhoneNumber(@RequestBody UpdatePhoneNumberDto updatePhoneNumberDto,
                                                   @AuthenticationPrincipal UserDetails userDetails) {
         userAccountService.updatePhoneNumber(Long.parseLong(userDetails.getUsername()), updatePhoneNumberDto.getPhoneNumber());
-        return ResponseEntity.ok().build();
     }
 
-    @PatchMapping("/users/name")
-    public ResponseEntity<Void> updateName(@RequestBody UpdateNameDto updateNameDto,
+    @PatchMapping("/name")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateName(@RequestBody UpdateNameDto updateNameDto,
                                            @AuthenticationPrincipal UserDetails userDetails) {
         userAccountService.updateName(Long.parseLong(userDetails.getUsername()), updateNameDto.getUserName());
-        return ResponseEntity.ok().build();
     }
 
-    @PatchMapping("/users/nickname")
-    public ResponseEntity<Void> updateNickname(@RequestBody UpdateNicknameDto updateNicknameDto,
+    @PatchMapping("/nickname")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateNickname(@RequestBody UpdateNicknameDto updateNicknameDto,
                                                @AuthenticationPrincipal UserDetails userDetails) {
         userAccountService.updateNickname(Long.parseLong(userDetails.getUsername()), updateNicknameDto.getNickname());
-        return ResponseEntity.ok().build();
     }
 }
