@@ -19,17 +19,17 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findUser(@Param("socialId") String socialId, @Param("platform") Platform platform);
 
     @Transactional
-    @Modifying
+    @Modifying(clearAutomatically = true, flushAutomatically = true)
     @Query("update User u set u.phoneNumber = :phoneNumber where u.id = :userId")
     void updatePhoneNumber(@Param("userId") long userId, @Param("phoneNumber") String phoneNumber);
 
     @Transactional
-    @Modifying
+    @Modifying(clearAutomatically = true, flushAutomatically = true)
     @Query("update User u set u.username = :userName where u.id = :userId")
     void updateUserName(@Param("userId") long userId, @Param("userName") String userName);
 
     @Transactional
-    @Modifying
+    @Modifying(clearAutomatically = true, flushAutomatically = true)
     @Query("update User u set u.nickname = :nickname where u.id = :userId")
     void updateNickname(@Param("userId") long userId, @Param("nickname") String nickname);
 }

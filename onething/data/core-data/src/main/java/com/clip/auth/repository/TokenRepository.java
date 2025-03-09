@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 public interface TokenRepository extends JpaRepository<Token, Long> {
 
     @Transactional
-    @Modifying
+    @Modifying(clearAutomatically = true, flushAutomatically = true)
     @Query("update Token t set t.refreshToken = :refreshToken where t.user = :user")
     void updateRefreshToken(@Param("user") User user, @Param("refreshToken") String refreshToken);
 }
