@@ -26,11 +26,11 @@ public class TokenProvider {
     }
 
     public String generateAccessToken(long userId, LocalDateTime currentDateTime) {
-        return generateToken(new CustomClaims(userId,TokenType.ACCESS_TOKEN), currentDateTime, LocalDateTime.now().plusDays(jwtProperties.getAccessTokenExpirationPeriodDay()));
+        return generateToken(new CustomClaims(userId,TokenType.ACCESS_TOKEN), currentDateTime, currentDateTime.plusDays(jwtProperties.getAccessTokenExpirationPeriodDay()));
     }
 
     public String generateRefreshToken(long userId, LocalDateTime currentDateTime) {
-        return generateToken(new CustomClaims(userId,TokenType.REFRESH_TOKEN), currentDateTime, LocalDateTime.now().plusMonths(jwtProperties.getRefreshTokenExpirationPeriodMonth()));
+        return generateToken(new CustomClaims(userId,TokenType.REFRESH_TOKEN), currentDateTime, currentDateTime.plusMonths(jwtProperties.getRefreshTokenExpirationPeriodMonth()));
     }
 
     public String extractUserId(String token) {
