@@ -1,4 +1,4 @@
-package com.clip.global.aop;
+package com.clip.global.exception;
 
 import com.clip.api.user.exception.NotFoundUserException;
 import com.clip.user.exception.NicknameAlreadyExistsException;
