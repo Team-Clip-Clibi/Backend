@@ -1,5 +1,6 @@
 package com.clip.global.aop;
 
+import com.clip.api.user.exception.NotFoundUserException;
 import com.clip.user.exception.NicknameAlreadyExistsException;
 import com.clip.user.exception.PhoneNumberAlreadyExistsException;
 import lombok.RequiredArgsConstructor;
@@ -22,5 +23,9 @@ public class ValidExceptionHandler {
                 .body(e.getMessage());
     }
 
-
+    @ExceptionHandler(NotFoundUserException.class)
+    public ResponseEntity<?> notFoundUserException(NotFoundUserException e) {
+        return ResponseEntity.badRequest()
+                .body(e.getMessage());
+    }
 }
