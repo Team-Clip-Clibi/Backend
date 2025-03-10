@@ -3,6 +3,7 @@ package com.clip.user.entity;
 import com.clip.common.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -19,10 +20,10 @@ public class User extends BaseEntity {
     @Column(length = 30)
     private String username;
 
-    @Column
+    @Column(unique = true)
     private String phoneNumber;
 
-    @Column
+    @Column(unique = true)
     private String nickname;
 
     @Column
@@ -47,5 +48,16 @@ public class User extends BaseEntity {
     @Column
     private String socialId;
 
-
+    @Builder
+    public User(String username, String phoneNumber, String nickname, LocalDate birth, City city, County county, Gender gender, Platform platform, String socialId) {
+        this.username = username;
+        this.phoneNumber = phoneNumber;
+        this.nickname = nickname;
+        this.birth = birth;
+        this.city = city;
+        this.county = county;
+        this.gender = gender;
+        this.platform = platform;
+        this.socialId = socialId;
+    }
 }

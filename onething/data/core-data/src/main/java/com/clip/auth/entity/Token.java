@@ -4,6 +4,7 @@ import com.clip.common.entity.BaseEntity;
 import com.clip.user.entity.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -23,4 +24,10 @@ public class Token extends BaseEntity {
 
     @Column
     private String refreshToken;
+
+    @Builder
+    public Token(User user, String refreshToken) {
+        this.user = user;
+        this.refreshToken = refreshToken;
+    }
 }

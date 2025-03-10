@@ -1,0 +1,9 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: create
+
+exclude-auth-path-patterns:
+  paths:
+    - path-pattern: /test
+      method: POST
