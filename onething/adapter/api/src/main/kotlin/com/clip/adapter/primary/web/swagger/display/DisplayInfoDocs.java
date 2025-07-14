@@ -1,8 +1,5 @@
 package com.clip.adapter.primary.web.swagger.display;
 
-import com.clip.api.display.controller.dto.BannerInfoDto;
-import com.clip.api.display.controller.dto.NoticeInfoDto;
-import com.clip.notice.entity.BannerType;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;

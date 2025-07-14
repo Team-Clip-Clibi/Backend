@@ -1,7 +1,7 @@
 package com.clip.application.user.port.`in`
 
-import com.clip.domain.user.User
+import com.clip.adapter.primary.web.user.dto.SignUpRequest
 
 interface UserRegisterUseCase {
-    fun registerUser(user: User): User
+    fun registerUser(request: SignUpRequest)
 }

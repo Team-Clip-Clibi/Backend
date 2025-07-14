@@ -1,15 +1,12 @@
 package com.clip.adapter.primary.web.swagger.user
 
-import com.clip.adapter.primary.web.user.dto.SignUpDTO
+import com.clip.adapter.primary.web.user.dto.SignUpRequest
 import com.clip.adapter.primary.web.user.dto.Token
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.media.Content
 import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.tags.Tag
-import jakarta.validation.Valid
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
 
 @Tag(name = "회원관리", description = "회원가입, 로그인")
 interface UserAccountDocs {
@@ -28,5 +25,5 @@ interface UserAccountDocs {
             schema = Schema(implementation = Token::class)
         )]
     )
-    fun registerUser(request:  SignUpDTO): Token
+    fun registerUser(request:  SignUpRequest): Token
 }

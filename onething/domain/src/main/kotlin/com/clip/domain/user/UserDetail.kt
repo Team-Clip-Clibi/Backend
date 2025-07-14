@@ -1,57 +1,65 @@
 package com.clip.domain.user
 
-import com.clip.domain.user.enums.City
-import com.clip.domain.user.enums.County
-import com.clip.domain.user.enums.DeviceType
-import com.clip.domain.user.enums.Gender
-import com.clip.domain.user.enums.Job
-import com.clip.domain.user.enums.Platform
-import com.clip.domain.user.enums.RelationshipStatus
+import com.clip.domain.user.enums.*
 import java.time.LocalDate
 
-class UserDetail(
+internal data class AcceptanceInfo (
     val servicePermission: Boolean,
     val privatePermission: Boolean,
-    val marketingPermission: Boolean,
-    var username: String? = null,
-    var phoneNumber: String? = null,
-    var nickname: String? = null,
-    var birth: LocalDate? = null,
-    var city: City? = null,
-    var county: County? = null,
-    var gender: Gender? = null,
-    var platform: Platform,
-    var socialId: String,
-    var deviceType: DeviceType,
-    var osVersion: String,
-    var firebaseToken: String? = null,
-    var isPhoneNumVerified: Boolean = false,
-    var dietaryOption: String? = null,
-    var relationshipStatus: RelationshipStatus? = null,
-    var isSameRelationshipConsidered: Boolean? = null,
-    var job: Job? = null,
-    var isAllowNotify: Boolean,
+    val marketingPermission: Boolean
 ) {
-//    companion object {
-//        fun register(
-//            platform: Platform,
-//            socialId: String,
-//            deviceType: DeviceType,
-//            osVersion: String,
-//            firebaseToken: String,
-//            isAllowNotify: Boolean,
-//        ) : UserDetail {
-//            return UserDetail(
-//                platform = platform,
-//                socialId = socialId,
-//                deviceType = deviceType,
-//                firebaseToken = firebaseToken,
-//                osVersion = osVersion,
-//                isAllowNotify = isAllowNotify,
-//            )
-//        }
-//    }
+    init {
+        require(servicePermission) { "서비스 이용약관 동의는 필수입니다." }
+        require(privatePermission) { "개인정보 처리방침 동의는 필수입니다." }
+    }
+}
 
+internal data class PersonalInfo (
+    val username: String?,
+    val phoneNumber: String?,
+    val nickname: String?,
+    val birth: LocalDate?,
+    val city: City?,
+    val county: County?,
+    val gender: Gender?,
+    val job: Job?,
+    val language: String?,
+    val dietaryOption: String?,
+    val relationshipStatus: RelationshipStatus?,
+    val isSameRelationshipConsidered: Boolean?
+) {
+    companion object {
+        fun createEmpty() = PersonalInfo(
+            username = null,
+            phoneNumber = null,
+            nickname = null,
+            birth = null,
+            city = null,
+            county = null,
+            gender = null,
+            job = null,
+            language = null,
+            dietaryOption = null,
+            relationshipStatus = null,
+            isSameRelationshipConsidered = null
+        )
+    }
+}
 
-
+internal data class TechnicalInfo (
+    val platform: Platform,
+    val socialId: String,
+    val deviceType: DeviceType,
+    val osVersion: String,
+    val firebaseToken: String?,
+    val isPhoneNumberVerified: Boolean = false,
+    val isAllowNotify: Boolean
+) {
+    init {
+        require(socialId.isNotBlank()) { "소셜 ID는 필수입니다." }
+        require(osVersion.isNotBlank()) { "OS 버전은 필수입니다." }
+        if (isAllowNotify) {
+            require(!firebaseToken.isNullOrBlank()) { "알림을 허용하려면 파이어베이스 토큰이 필요합니다." }
+        }
+    }
 }
